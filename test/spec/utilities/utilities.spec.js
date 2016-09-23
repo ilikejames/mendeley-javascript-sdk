@@ -310,7 +310,7 @@ describe('utilities', function () {
                 link: {
                     next: 'http://i.am.the.next.link',
                     previous: 'http://i.am.the.previous.link',
-                    dontdo:'something'
+                    dontdo: 'something'
                 },
                 'mendeley-count': 199
             },
@@ -320,7 +320,7 @@ describe('utilities', function () {
         };
 
         var options = {
-            authFlow: function() { return authFlow; },
+            authFlow: function () { return authFlow; },
             baseUrl: 'baseUrl',
             method: 'GET',
             resource: '/communities/v1',
@@ -328,7 +328,7 @@ describe('utilities', function () {
                 'Accept': 'application/my/custom/mimetype',
                 'Development-Token': 'devToken'
             },
-            responseFilter : function() {}
+            responseFilter: function () { }
         };
 
         it('should return the correct pagination object with next/prev methods', function () {
@@ -346,7 +346,7 @@ describe('utilities', function () {
             expect(paginationResponse.dontdo).not.toBeDefined();
 
             expect(paginationResponse.headers).toEqual({
-                accept:'application/my/custom/mimetype',
+                accept: 'application/my/custom/mimetype',
                 link: {
                     next: 'http://i.am.the.next.link',
                     previous: 'http://i.am.the.previous.link'
@@ -379,10 +379,10 @@ describe('utilities', function () {
     describe('getPaginationHandler', function () {
 
         it('should return a method that calls the correct endpoint', function () {
-            
+
             var handler = utils.getPaginationHandler('http://mylink?page=2', authFlow, {
-                'Accept' : 'application/custom',
-                'Development-Token' : 'devToken'
+                'Accept': 'application/custom',
+                'Development-Token': 'devToken'
             });
 
             handler();
@@ -399,7 +399,7 @@ describe('utilities', function () {
                     authFlow: authFlow,
                     maxRetries: 1
                 });
-        
+
         });
     });
 });
