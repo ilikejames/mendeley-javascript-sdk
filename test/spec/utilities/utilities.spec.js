@@ -344,7 +344,15 @@ describe('utilities', function () {
             expect(paginationResponse.first).not.toBeDefined();
             expect(paginationResponse.last).not.toBeDefined();
             expect(paginationResponse.dontdo).not.toBeDefined();
-        
+
+            expect(paginationResponse.headers).toEqual({
+                accept:'application/my/custom/mimetype',
+                link: {
+                    next: 'http://i.am.the.next.link',
+                    previous: 'http://i.am.the.previous.link'
+                }
+            });
+
         });
 
         it('next link should call the correct endpoint', function () {
@@ -368,4 +376,30 @@ describe('utilities', function () {
 
     });
 
+    describe('getPaginationHandler', function () {
+
+        it('should return a method that calls the correct endpoint', function () {
+            
+            var handler = utils.getPaginationHandler('http://mylink?page=2', authFlow, {
+                'Accept' : 'application/custom',
+                'Development-Token' : 'devToken'
+            });
+
+            handler();
+
+            expect(requestCreateSpy).toHaveBeenCalledWith({
+                method: 'GET',
+                url: 'http://mylink?page=2',
+                headers: {
+                    Accept: 'application/custom',
+                    'Development-Token': 'devToken'
+                },
+                responseType: 'json'
+            }, {
+                    authFlow: authFlow,
+                    maxRetries: 1
+                });
+        
+        });
+    });
 });
